@@ -1,0 +1,882 @@
+<!doctype html>
+<html lang="en" data-theme="ultra">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Devansh Aggarwal · Portfolio</title>
+<meta name="description" content="Projects built by Devansh Aggarwal.">
+<meta property="og:title" content="Devansh Aggarwal · Portfolio">
+<meta property="og:description" content="Projects built by Devansh Aggarwal.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#07060b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2307060b'/%3E%3Crect x='3' y='3' width='26' height='26' fill='none' stroke='%23a884ff' stroke-width='2.5'/%3E%3Ctext x='16' y='22' font-family='Arial Narrow,Arial' font-weight='700' font-size='14' fill='%23a884ff' text-anchor='middle'%3EDA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     Tokens. Text is neutral; the theme colour is only the accent.
+     ============================================================ */
+  :root {
+    color-scheme: dark;
+    --bg: #07060b;
+    --bg-2: #0d0b14;
+    --fg: #eeebf5;
+    --mute: #8f8a9f;
+    --line: rgba(238, 235, 245, .12);
+    --line-2: rgba(238, 235, 245, .22);
+    --rgb: 168, 132, 255;
+    --c: rgb(var(--rgb));
+    --c-soft: rgba(var(--rgb), .14);
+    --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+    --mono: "Geist Mono", ui-monospace, monospace;
+    --display: "Oswald", "Arial Narrow", sans-serif;
+    --pad: clamp(16px, 3vw, 40px);
+    --ease: cubic-bezier(.16, 1, .3, 1);
+  }
+  [data-theme="ultra"] { --rgb: 168, 132, 255; }
+  [data-theme="amber"] { --rgb: 255, 176, 0; }
+  [data-theme="acid"]  { --rgb: 198, 255, 0; }
+  [data-theme="ice"]   { --rgb: 94, 234, 255; }
+  [data-theme="blood"] { --rgb: 255, 64, 64; }
+
+  * { box-sizing: border-box; }
+  html { background: var(--bg); scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 400 16px/1.5 var(--sans);
+    -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--c); color: #000; }
+  :focus-visible { outline: 1px dashed var(--c); outline-offset: 4px; }
+  h1, h2, h3, p, dl, dd { margin: 0; }
+  h1, h2, h3 { font-weight: inherit; font-size: inherit; }
+  .mono { font-family: var(--mono); }
+  .mute { color: var(--mute); }
+  .acc { color: var(--c); }
+  .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .wrap { padding: 0 var(--pad); max-width: 1480px; margin: 0 auto; }
+
+  /* Labels: small mono caps used everywhere for metadata */
+  .label { font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+
+  /* ---------- Background: subtle smoke + grain ---------- */
+  .bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+    background: radial-gradient(80% 60% at 80% 10%, rgba(var(--rgb), .10), transparent 60%), var(--bg); }
+  .bg canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: .7; }
+  .bg .grain {
+    position: absolute; inset: -50%; opacity: .07; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 1s steps(4) infinite;
+  }
+  @keyframes grain { 25% { transform: translate(-3%, 2%) } 50% { transform: translate(2%, -3%) } 75% { transform: translate(-2%, -1%) } }
+  .scanlines { position: fixed; inset: 0; z-index: 60; pointer-events: none;
+    background: repeating-linear-gradient(to bottom, transparent 0 2px, rgba(0,0,0,.08) 2px 3px); }
+
+  /* ---------- Loader ---------- */
+  #loader { position: fixed; inset: 0; z-index: 100; background: #000; display: grid; place-items: center;
+    transition: opacity .5s, visibility .5s; font: 500 16px var(--mono); color: var(--c); }
+  #loader.done { opacity: 0; visibility: hidden; }
+  #loader .type::after { content: "_"; animation: blink .6s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0 } }
+
+  /* ---------- Nav: floating pill ---------- */
+  .nav {
+    position: fixed; z-index: 50; top: 12px; left: var(--pad); right: var(--pad);
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px;
+    padding: 8px 10px 8px 8px; border: 1px solid var(--line-2); border-radius: 999px;
+    background: rgba(10, 8, 16, .6); backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    font: 500 13px/1 var(--mono);
+    transition: transform .6s var(--ease);
+  }
+  .nav.hide { transform: translateY(-140%); }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .mark { display: grid; place-items: center; width: 30px; height: 30px; border: 1.5px solid var(--c); border-radius: 50%;
+    font: 700 13px/1 var(--display); color: var(--c); letter-spacing: .02em; }
+  .links { display: flex; gap: 4px; }
+  .links a { padding: 8px 14px; border-radius: 999px; color: var(--mute); transition: color .25s, background .25s; }
+  .links a:hover, .links a.on { color: var(--fg); background: rgba(238,235,245,.07); }
+  .links a.on::before { content: "● "; color: var(--c); font-size: 9px; vertical-align: 2px; }
+  .nav .right { display: flex; justify-content: flex-end; align-items: center; gap: 16px; }
+  .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #3ddc84; box-shadow: 0 0 8px #3ddc84; margin-right: 8px; vertical-align: 1px; animation: pulse 2s infinite; }
+  @keyframes pulse { 50% { opacity: .35 } }
+  .theme-btn { all: unset; cursor: pointer; display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line-2); color: var(--mute); }
+  .theme-btn:hover { color: var(--fg); }
+  .theme-btn:focus-visible { outline: 1px dashed var(--c); outline-offset: 3px; }
+  .theme-btn i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); box-shadow: 0 0 10px var(--c); }
+
+  /* ---------- LED dot-matrix type (accent word) ---------- */
+  .led {
+    font-family: var(--display); font-weight: 700; text-transform: uppercase; color: var(--c);
+    -webkit-mask-image: radial-gradient(circle at center, #000 58%, transparent 64%); -webkit-mask-size: 5px 5px;
+    mask-image: radial-gradient(circle at center, #000 58%, transparent 64%); mask-size: 5px 5px;
+  }
+  .glow { filter: drop-shadow(0 0 16px rgba(var(--rgb), .55)) drop-shadow(0 0 2px rgba(var(--rgb), .9)); }
+
+  /* ---------- Hero ---------- */
+  .hero-wrap { position: relative; }
+  .hero { min-height: 100svh; display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; align-items: center;
+    padding-top: 110px; padding-bottom: 90px; }
+  .hero-text { grid-column: 1 / span 7; }
+  .hero .kicker { margin-bottom: 28px; }
+  .hero .kicker .acc::before { content: "> "; }
+  .name { font: 700 clamp(64px, 10.2vw, 172px)/.84 var(--display); text-transform: uppercase; letter-spacing: -.005em; }
+  /* extra padding (cancelled by negative margin) gives the glow room so the clip doesn't cut it into a box */
+  .name .line { display: block; overflow: hidden; padding: .14em .3em .14em; margin: -.14em -.3em -.1em; }
+  .name .line > span { display: inline-block; transform: translateY(135%); transition: transform 1.1s var(--ease); }
+  .name .line:nth-child(2) > span { transition-delay: .1s; }
+  body.ready .name .line > span { transform: none; }
+  .bar { width: 48px; height: 3px; background: var(--c); margin: 34px 0 26px; box-shadow: 0 0 12px var(--c); }
+  .facts-hero { font: 400 15px/1.9 var(--mono); color: var(--mute); }
+  .facts-hero b { color: var(--fg); font-weight: 600; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border-radius: 999px;
+    font: 500 14px/1 var(--mono); border: 1px solid var(--line-2); transition: background .3s, color .3s, border-color .3s, transform .3s var(--ease); }
+  .btn:hover { border-color: var(--c); transform: translateY(-2px); }
+  .btn.solid { background: var(--c); color: #0a0810; border-color: var(--c); }
+  .btn.solid:hover { background: var(--fg); border-color: var(--fg); }
+  .btn .arr { transition: transform .3s var(--ease); }
+  .btn:hover .arr { transform: translateX(4px); }
+
+  /* 3D object: framed, like a specimen plate */
+  .plate { grid-column: 8 / span 5; position: relative; aspect-ratio: 4 / 5; border: 1px solid var(--line-2);
+    clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 28px 100%, 0 calc(100% - 28px));
+    background: radial-gradient(60% 50% at 50% 50%, rgba(var(--rgb), .10), transparent 70%); }
+  .plate canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  .plate .tag { position: absolute; font: 500 11px/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); pointer-events: none; }
+  .plate .tl { top: 14px; left: 16px; } .plate .tr { top: 14px; right: 40px; text-align: right; }
+  .plate .bl { bottom: 14px; left: 40px; } .plate .br { bottom: 14px; right: 16px; text-align: right; }
+  .plate .cross { position: absolute; width: 14px; height: 14px; pointer-events: none; }
+  .plate .cross::before, .plate .cross::after { content: ""; position: absolute; background: var(--c); }
+  .plate .cross::before { left: 6px; top: 0; width: 2px; height: 14px; } .plate .cross::after { top: 6px; left: 0; width: 14px; height: 2px; }
+  .plate .c1 { top: 50%; left: 10px; margin-top: -7px; } .plate .c2 { top: 50%; right: 10px; margin-top: -7px; }
+
+  .scroll-cue { position: absolute; left: var(--pad); bottom: 28px; }
+  .scroll-cue span { display: inline-block; animation: nudge 1.8s var(--ease) infinite; }
+  @keyframes nudge { 50% { transform: translateY(4px); } }
+
+  /* ---------- Ticker ---------- */
+  .ticker { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; white-space: nowrap; padding: 18px 0;
+    background: rgba(7,6,11,.6); }
+  .ticker .track { display: inline-block; animation: tick 34s linear infinite; font: 700 clamp(22px, 2.4vw, 34px)/1 var(--display); text-transform: uppercase; letter-spacing: .01em; }
+  .ticker span { margin: 0 22px; }
+  .ticker .star { color: var(--c); }
+  @keyframes tick { to { transform: translateX(-50%); } }
+
+  /* ---------- Section heading row ---------- */
+  section { padding: 16vh 0; position: relative; }
+  .sec-head { display: flex; align-items: baseline; gap: 20px; margin-bottom: 56px; }
+  .sec-head .num { color: var(--c); }
+  .sec-head .rule { flex: 1; height: 1px; background: var(--line-2); transform-origin: left; transform: scaleX(0); transition: transform 1.4s var(--ease); }
+  .sec-head.in .rule { transform: none; }
+  .sec-title { font: 700 clamp(56px, 9vw, 150px)/.86 var(--display); text-transform: uppercase; margin-bottom: 56px; }
+
+  /* ---------- Work index (table) ---------- */
+  .index { border-top: 1px solid var(--line-2); }
+  .row { display: grid; grid-template-columns: 70px 1fr 200px 160px 40px; gap: 16px; align-items: center;
+    padding: 26px 8px; border-bottom: 1px solid var(--line); position: relative; isolation: isolate; transition: padding .5s var(--ease), color .3s; }
+  .row::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--c-soft), transparent 70%);
+    transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease); z-index: -1; }
+  .row:hover::before, .row:focus-visible::before { transform: none; }
+  .row:hover { padding-left: 22px; }
+  .row .t { font: 500 clamp(22px, 2.4vw, 34px)/1.1 var(--display); text-transform: uppercase; letter-spacing: .01em; }
+  .row .go { text-align: right; font-family: var(--mono); color: var(--mute); transition: transform .4s var(--ease), color .3s; }
+  .row:hover .go { transform: translate(3px, -3px); color: var(--c); }
+  .index-head { padding-top: 0; padding-bottom: 14px; border-bottom: 1px solid var(--line-2); }
+  .index-head:hover { padding-left: 8px; }
+  .status::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 8px; background: var(--mute); vertical-align: 1px; }
+  .status.live::before { background: #3ddc84; box-shadow: 0 0 8px #3ddc84; }
+  .status.wip::before { background: #ffb000; box-shadow: 0 0 8px #ffb000; }
+
+  /* Floating preview that follows the cursor over the index */
+  .peek { position: fixed; left: 0; top: 0; z-index: 30; width: 340px; aspect-ratio: 16 / 10; pointer-events: none;
+    opacity: 0; transform: translate(-50%, -50%) scale(.85); transition: opacity .3s, transform .45s var(--ease); }
+  .peek.on { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  .peek .window { height: 100%; }
+
+  /* ---------- Browser window frame (for screenshots) ---------- */
+  .window { border: 1px solid var(--line-2); border-radius: 12px; overflow: hidden; background: var(--bg-2);
+    box-shadow: 0 30px 80px -30px rgba(0,0,0,.8), 0 0 0 1px rgba(0,0,0,.4); display: flex; flex-direction: column; }
+  .window .chrome { display: flex; align-items: center; gap: 7px; padding: 10px 12px; border-bottom: 1px solid var(--line); background: #0f0d17; }
+  .window .chrome i { width: 11px; height: 11px; border-radius: 50%; background: #ff5f57; flex: none; }
+  .window .chrome i:nth-child(2) { background: #febc2e; } .window .chrome i:nth-child(3) { background: #28c840; }
+  .window .url { flex: 1; text-align: center; font: 400 12px/1 var(--mono); color: var(--mute); margin-right: 44px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .window .screen { position: relative; flex: 1; min-height: 0; overflow: hidden;
+    background:
+      repeating-linear-gradient(90deg, rgba(var(--rgb), .07) 0 1px, transparent 1px 6px),
+      repeating-linear-gradient(0deg, rgba(var(--rgb), .07) 0 1px, transparent 1px 6px), var(--bg-2); }
+  .window .screen img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .window .ph { position: absolute; inset: 0; display: grid; place-items: center; }
+  .window .ph .led { font-size: clamp(48px, 9vw, 150px); line-height: 1; }
+  .peek .window .ph .led { font-size: 72px; }
+  /* Phone screenshots (for mobile apps) laid out inside a window */
+  .window .phones { display: flex; justify-content: center; align-items: center; gap: 4%; padding: 5% 6%;
+    background: radial-gradient(70% 70% at 50% 40%, rgba(var(--rgb), .22), transparent 70%),
+      repeating-linear-gradient(90deg, rgba(var(--rgb), .06) 0 1px, transparent 1px 6px),
+      repeating-linear-gradient(0deg, rgba(var(--rgb), .06) 0 1px, transparent 1px 6px), var(--bg-2); }
+  .phone { margin: 0; height: 88%; aspect-ratio: 390 / 844; position: relative; transition: transform .8s var(--ease); }
+  .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; border-radius: 18px;
+    border: 4px solid #1b1824; box-shadow: 0 24px 60px -20px rgba(0,0,0,.9), 0 0 0 1px var(--line-2); }
+  .phone figcaption { position: absolute; left: 0; right: 0; bottom: -22px; text-align: center; font-size: 10px; }
+  .phone.mid { height: 96%; transform: translateY(-2%); }
+  .window:hover .phone:not(.mid) { transform: translateY(-3%); }
+  .window:hover .phone.mid { transform: translateY(-5%) scale(1.02); }
+  /* Two desktop screenshots side by side (for dashboards / tools) */
+  .window .duo { display: flex; justify-content: center; align-items: center; gap: 4%; padding: 5% 5% 7%;
+    background: radial-gradient(70% 70% at 50% 40%, rgba(var(--rgb), .2), transparent 70%),
+      repeating-linear-gradient(90deg, rgba(var(--rgb), .06) 0 1px, transparent 1px 6px),
+      repeating-linear-gradient(0deg, rgba(var(--rgb), .06) 0 1px, transparent 1px 6px), var(--bg-2); }
+  .shot { margin: 0; height: 86%; position: relative; transition: transform .8s var(--ease); }
+  .shot img { height: 100%; width: auto; max-width: 100%; display: block; border-radius: 8px;
+    box-shadow: 0 24px 60px -20px rgba(0,0,0,.9), 0 0 0 1px var(--line-2); }
+  .shot figcaption { position: absolute; left: 0; right: 0; bottom: -22px; text-align: center; font-size: 10px; }
+  .shot.mid { height: 94%; }
+  .window:hover .shot { transform: translateY(-3%); }
+  .shot img, .phone img { cursor: zoom-in; }
+
+  /* Click a screenshot to see it full size */
+  .lightbox { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 5vh 5vw;
+    background: rgba(4,3,8,.88); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; cursor: zoom-out; }
+  .lightbox.on { opacity: 1; visibility: visible; }
+  .lightbox img { max-width: 100%; max-height: 84vh; border-radius: 10px; box-shadow: 0 30px 90px rgba(0,0,0,.8), 0 0 0 1px var(--line-2);
+    transform: scale(.94); transition: transform .5s var(--ease); }
+  .lightbox.on img { transform: none; }
+  .lightbox p { margin-top: 16px; text-align: center; }
+  .peek .screen img { position: absolute; inset: 0; }
+  .peek .screen.has-img .ph, .peek .screen:not(.has-img) img { display: none; }
+  .peek .screen.has-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .window .scan { position: absolute; left: 0; right: 0; height: 30%; top: -30%; pointer-events: none;
+    background: linear-gradient(to bottom, transparent, rgba(var(--rgb), .10), transparent); animation: scan 5s linear infinite; }
+  @keyframes scan { to { top: 100%; } }
+
+  /* ---------- Case study ---------- */
+  .case { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; padding: 12vh 0; border-top: 1px solid var(--line); }
+  .case .meta { grid-column: 1 / span 4; align-self: start; position: sticky; top: 100px; }
+  .case .main { grid-column: 5 / span 8; }
+  .case .idx { font: 700 clamp(72px, 8vw, 130px)/.8 var(--display); }
+  .case h3 { font: 700 clamp(30px, 3vw, 46px)/1 var(--display); text-transform: uppercase; margin: 22px 0 26px; }
+  .case dl { display: grid; grid-template-columns: 90px 1fr; gap: 12px 16px; font: 400 14px/1.5 var(--mono); padding-top: 20px; border-top: 1px solid var(--line); }
+  .case dt { color: var(--mute); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 0; padding: 0; }
+  .chips li { border: 1px solid var(--line-2); border-radius: 999px; padding: 3px 10px; font-size: 12px; }
+  .case .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+  .case .actions .btn { padding: 11px 18px; font-size: 13px; }
+  .case .main .window { aspect-ratio: 16 / 10; }
+  /* Key numbers for a project (facts, not prose) */
+  .specs { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--line-2); border-left: 1px solid var(--line); }
+  .specs li { padding: 20px 18px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .specs b { display: block; font: 700 clamp(30px, 3vw, 46px)/1 var(--display); color: var(--fg); margin-bottom: 8px; }
+  .specs li:first-child b { color: var(--c); }
+  .write { margin-top: 56px; }
+  .write .item { display: grid; grid-template-columns: 170px 1fr; gap: 24px; padding: 26px 0; border-top: 1px solid var(--line); }
+  .write .item h4 { margin: 0; font: 500 12px/1.9 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); }
+  .write .item h4 span { color: var(--c); margin-right: 8px; }
+  .write p { margin: 0; font: 400 clamp(16px, 1.25vw, 19px)/1.65 var(--sans); color: #d8d4e2; }
+
+  /* Placeholder text you still need to write. Remove class="todo" once filled in. */
+  .todo { color: var(--mute) !important; border: 1px dashed rgba(var(--rgb), .5); background: rgba(7,6,11,.6); padding: 10px 14px; border-radius: 6px; font-style: italic; }
+  .todo::before { content: "[ write ] "; font-style: normal; font-family: var(--mono); color: var(--c); }
+  /* AI-written drafts to replace with your own words. Open index.html?drafts to highlight them all. */
+  body.show-drafts .draft { outline: 1px dashed #ffb000; outline-offset: 4px; }
+  .todo-i { border: 1px dashed rgba(var(--rgb), .5); border-radius: 4px; padding: 0 6px; font-style: italic; color: var(--mute); }
+
+  /* ---------- About ---------- */
+  .about { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; align-items: start; }
+  .about .pic { grid-column: 1 / span 4; }
+  .about .pic .window { aspect-ratio: 4 / 5; }
+  .about .txt { grid-column: 6 / span 7; }
+  .about .intro { font: 400 clamp(22px, 2.2vw, 32px)/1.45 var(--sans); letter-spacing: -.01em; }
+  .about .intro.todo { font-size: clamp(18px, 1.6vw, 22px); }
+  .about dl { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 24px; margin-top: 48px; }
+  .about dl div { padding: 16px 0; border-top: 1px solid var(--line); }
+  .about dt { margin-bottom: 4px; }
+  .about dd { font: 500 16px/1.4 var(--mono); }
+
+  /* ---------- Contact ---------- */
+  .contact .big { font: 700 clamp(64px, 12.5vw, 220px)/.84 var(--display); text-transform: uppercase; margin-bottom: 64px; }
+  .contact .big .indent { display: block; padding-left: 16vw; }
+  .contact ul { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-2); }
+  .contact li a { display: grid; grid-template-columns: 1fr auto 40px; align-items: center; gap: 16px; padding: 24px 8px; border-bottom: 1px solid var(--line);
+    font: 500 clamp(26px, 3.2vw, 48px)/1 var(--display); text-transform: uppercase; position: relative; isolation: isolate; transition: padding .5s var(--ease), color .3s; }
+  .contact li a::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, var(--c-soft), transparent 70%); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease); z-index: -1; }
+  .contact li a:hover::before { transform: none; }
+  .contact li a:hover { padding-left: 22px; color: var(--c); }
+  /* handles/addresses keep their real case and may wrap instead of overflowing */
+  .contact li .label { text-transform: none; letter-spacing: .02em; text-align: right; min-width: 0; overflow-wrap: anywhere; }
+  .contact li .go { text-align: right; font: 400 18px var(--mono); transition: transform .4s var(--ease); }
+  .contact li a:hover .go { transform: translate(3px, -3px); }
+  footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 28px var(--pad) 36px; border-top: 1px solid var(--line); }
+
+  /* ---------- Reveal on scroll ---------- */
+  [data-reveal] { opacity: 0; transform: translateY(40px); transition: opacity .9s, transform 1s var(--ease); }
+  [data-reveal].in { opacity: 1; transform: none; }
+  .hero-text > *:not(.name), .plate { opacity: 0; transform: translateY(20px); transition: opacity .9s .35s, transform 1s .35s var(--ease); }
+  body.ready .hero-text > *, body.ready .plate { opacity: 1; transform: none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 980px) {
+    .hero { grid-template-columns: 1fr; padding-top: 96px; gap: 40px; }
+    .hero-text, .plate { grid-column: 1 / -1; }
+    .plate { aspect-ratio: 1 / 1; max-height: 70vh; }
+    .row { grid-template-columns: 44px 1fr 110px 30px; }
+    .row .c-type { display: none; }
+    .case .meta, .case .main, .about .pic, .about .txt { grid-column: 1 / -1; }
+    .case .meta { position: static; }
+    .about .pic { max-width: 360px; }
+  }
+  @media (max-width: 640px) {
+    .nav { grid-template-columns: auto 1fr; }
+    .links, .nav .clock { display: none; }
+    .row { grid-template-columns: 34px 1fr 24px; padding: 20px 4px; }
+    .row .c-status { display: none; }
+    .write .item { grid-template-columns: 1fr; gap: 10px; }
+    .specs { grid-template-columns: repeat(2, 1fr); }
+    .about dl { grid-template-columns: 1fr; }
+    .contact .big .indent { padding-left: 0; }
+    .contact li a { grid-template-columns: auto minmax(0, 1fr) 20px; gap: 12px; }
+    .contact li .label { font-size: 11px; }
+    .peek, .scroll-cue { display: none; }
+    .case .main .window:has(.phones) { aspect-ratio: 1 / 1; }
+    .window .phones { gap: 3%; padding: 6% 3% 9%; }
+    .phone img { border-width: 2px; border-radius: 10px; }
+    .case .main .window:has(.duo) { aspect-ratio: 5 / 4; }
+    .window .duo { gap: 3%; padding: 6% 3% 10%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    [data-reveal], .hero-text > *, .plate, .name .line > span { opacity: 1 !important; transform: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true"><div class="type" id="loadtype"></div></div>
+<div class="bg" aria-hidden="true"><canvas id="bgfx"></canvas><div class="grain"></div></div>
+<div class="scanlines" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" aria-label="Main">
+  <a class="brand" href="#top"><span class="mark">DA</span><span>devansh<span class="acc">://</span>aggarwal</span></a>
+  <div class="links">
+    <a href="#work">work</a><a href="#about">about</a><a href="#contact">contact</a>
+  </div>
+  <div class="right">
+    <span class="clock mute"><span class="dot"></span><span id="clock">--:--</span> <span id="tz"></span></span>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Change accent colour"><i></i><span id="themeName">ultra</span></button>
+  </div>
+</nav>
+
+<main id="top">
+<!-- ============ HERO ============ -->
+<div class="hero-wrap">
+  <header class="hero wrap">
+    <div class="hero-text">
+      <p class="kicker label"><span class="acc">portfolio</span> · 2026 · age 18</p>
+      <h1 class="name">
+        <span class="line"><span>Devansh</span></span>
+        <span class="line"><span class="glow"><span class="led">Aggarwal</span></span></span>
+      </h1>
+      <div class="bar"></div>
+      <p class="facts-hero">
+        <b>18.</b> <span class="draft">I build tools that make confusing things usable.</span><br>
+        now building · <span class="draft" style="color:var(--fg)">NIFTY IV Explorer</span><br>
+        based in · <span class="todo-i">[city]</span>
+      </p>
+      <div class="cta">
+        <a class="btn solid" href="#work">see the work <span class="arr">→</span></a>
+        <a class="btn" href="#contact">get in touch</a>
+      </div>
+    </div>
+
+    <div class="plate" aria-hidden="true">
+      <canvas id="orb"></canvas>
+      <span class="tag tl">fig.01 — orbit</span>
+      <span class="tag tr">n=17,000 pts</span>
+      <span class="tag bl">rot <span id="rot">000.0</span>°</span>
+      <span class="tag br">move cursor</span>
+      <span class="cross c1"></span><span class="cross c2"></span>
+    </div>
+  </header>
+  <a class="scroll-cue label" href="#work">scroll <span>↓</span></a>
+</div>
+
+<!-- Stack ticker: edit the tools to match what you actually use -->
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    <span>Python</span><span class="star">✦</span><span>Next.js</span><span class="star">✦</span><span>Streamlit</span><span class="star">✦</span><span>PostgreSQL</span><span class="star">✦</span><span>Plotly</span><span class="star">✦</span><span>Vercel</span><span class="star">✦</span><span>Black-Scholes</span><span class="star">✦</span>
+    <span>Python</span><span class="star">✦</span><span>Next.js</span><span class="star">✦</span><span>Streamlit</span><span class="star">✦</span><span>PostgreSQL</span><span class="star">✦</span><span>Plotly</span><span class="star">✦</span><span>Vercel</span><span class="star">✦</span><span>Black-Scholes</span><span class="star">✦</span>
+  </div>
+</div>
+
+<!-- ============ WORK ============ -->
+<section id="work">
+  <div class="wrap">
+    <div class="sec-head label" data-reveal><span class="num">(01)</span><span>selected work</span><span class="rule"></span><span>02 projects</span></div>
+    <h2 class="sec-title" data-reveal>Things I've <span class="glow"><span class="led">built</span></span></h2>
+
+    <div class="index" data-reveal>
+      <div class="row index-head label" aria-hidden="true"><span>no.</span><span>project</span><span class="c-type">type</span><span class="c-status">status</span><span></span></div>
+      <a class="row" href="#circle" data-peek="CIRCLE" data-img="img/circle-tamil.png" data-url="madrasi-pi.vercel.app">
+        <span class="mono mute">00</span><span class="t">Circle</span><span class="c-type mono mute">mobile web app</span><span class="c-status mono status live">live</span><span class="go">↗</span>
+      </a>
+      <a class="row" href="#nifty-iv" data-peek="IV" data-img="img/nifty-iv-smile.png" data-url="github.com/Kriti710/Options-project">
+        <span class="mono mute">01</span><span class="t">NIFTY IV Explorer</span><span class="c-type mono mute">options model</span><span class="c-status mono status wip">runs locally</span><span class="go">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <!-- ===== PROJECT 00 ===== -->
+  <article class="case" id="circle">
+    <aside class="meta" data-reveal>
+      <div class="idx"><span class="glow"><span class="led">00</span></span></div>
+      <h3>Circle</h3>
+      <dl>
+        <dt>type</dt><dd>mobile web app</dd>
+        <dt>for</dt><dd>students new to Chennai</dd>
+        <dt>role</dt><dd><span class="draft">idea, design and build</span></dd>
+        <!-- Next.js + Vercel are confirmed from the live site; add the rest of what you used -->
+        <dt>stack</dt><dd><ul class="chips"><li>Next.js</li><li>Vercel</li><li>[tool]</li></ul></dd>
+      </dl>
+      <div class="actions">
+        <a class="btn solid" href="https://madrasi-pi.vercel.app/" target="_blank" rel="noopener">live app <span class="arr">↗</span></a>
+        <!-- Add Circle's repo link, then uncomment:
+        <a class="btn" href="https://github.com/YOUR-HANDLE/[repo]" target="_blank" rel="noopener">code <span class="arr">↗</span></a> -->
+      </div>
+    </aside>
+    <div class="main">
+      <div class="window" data-reveal>
+        <div class="chrome"><i></i><i></i><i></i><span class="url">madrasi-pi.vercel.app</span></div>
+        <div class="screen phones">
+          <figure class="phone"><img src="img/circle-tamil.png" alt="Circle Tamil screen: everyday phrases with pronunciation" loading="lazy"><figcaption class="label">tamil</figcaption></figure>
+          <figure class="phone mid"><img src="img/circle-travel.png" alt="Circle Travel screen: comparing the cost of getting around Chennai" loading="lazy"><figcaption class="label">travel</figcaption></figure>
+          <figure class="phone"><img src="img/circle-explore.png" alt="Circle Explore screen: places worth going and what they cost" loading="lazy"><figcaption class="label">explore</figcaption></figure>
+        </div>
+      </div>
+      <div class="write">
+        <div class="item" data-reveal><h4><span>01</span>what it is</h4><p class="draft">Moving to Chennai for college means a language you don't speak, auto fares that change with the driver's mood, and a city you don't know yet. Circle is a mobile web app that gets a new student through those first weeks: enough Tamil for daily life, what each way of getting around actually costs, and places worth going.</p></div>
+        <div class="item" data-reveal><h4><span>02</span>what i built</h4><p class="draft">A mobile-first Next.js app, deployed on Vercel. The Tamil section is organised around situations students actually hit (an auto to college, ordering at a mess, bargaining on Ranganathan Street, an emergency), with every line in Tamil script, a pronunciation guide and audio. Travel compares cycling, the suburban train, MTC buses, the metro and share autos for a given distance and highlights the cheapest. Explore lists places with their cost, category and how crowded they get. Everything works as a guest; an account is optional and only exists so progress survives a reinstall.</p></div>
+        <div class="item" data-reveal><h4><span>03</span>challenges</h4><p class="draft">Audio pronunciation depends on the phone having a Tamil voice installed, and many don't. Rather than failing silently, Circle falls back to an approximate pronunciation and tells the user it's doing so. The other problem was friction: a student who just arrived shouldn't have to sign up before getting help, so guest mode is the default and saving an account is a later, optional step.</p></div>
+        <div class="item" data-reveal><h4><span>04</span>what i learned</h4><p class="draft">Designing for one person in one place beats designing for everyone. Writing phrases for real moments (“Velachery signal, 8:40 AM”) made the content far more useful than a generic phrasebook would have been.</p></div>
+        <div class="item" data-reveal><h4><span>05</span>results</h4><p class="draft">Live at madrasi-pi.vercel.app. <span class="todo-i">[add users, students who tried it, or feedback]</span></p></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ===== PROJECT 01 =====
+       To add another project: copy a whole <article>, give it a new id, and add a matching row to the work index above. -->
+  <article class="case" id="nifty-iv">
+    <aside class="meta" data-reveal>
+      <div class="idx"><span class="glow"><span class="led">01</span></span></div>
+      <h3>NIFTY Implied-Volatility Explorer</h3>
+      <dl>
+        <dt>type</dt><dd>options valuation model</dd>
+        <dt>market</dt><dd>NIFTY options (NSE)</dd>
+        <dt>model</dt><dd>Black-Scholes-Merton, inverted by bisection</dd>
+        <dt>signal</dt><dd>IV vs median of the 6 nearest same-type strikes; ±10% = cheap / expensive</dd>
+        <dt>role</dt><dd><span class="draft">solo: spec, code and tests</span></dd>
+        <dt>stack</dt><dd><ul class="chips"><li>Python</li><li>Streamlit</li><li>Plotly</li><li>PostgreSQL</li><li>Supabase</li><li>psycopg</li><li>pytest</li><li>NSE data</li></ul></dd>
+      </dl>
+      <!-- Not deployed yet (the README is set up for Streamlit Community Cloud). Add a "live app" button here once it is. -->
+      <div class="actions">
+        <a class="btn solid" href="https://github.com/Kriti710/Options-project" target="_blank" rel="noopener">code on github <span class="arr">↗</span></a>
+      </div>
+    </aside>
+    <div class="main">
+      <div class="window" data-reveal>
+        <div class="chrome"><i></i><i></i><i></i><span class="url">localhost:8501 — NIFTY Volatility Explorer</span></div>
+        <div class="screen duo">
+          <figure class="shot mid"><img src="img/nifty-iv-smile.png" alt="Call and put volatility smile for the 29 Sep 2026 NIFTY expiry, with implied volatility plotted against strike" loading="lazy"><figcaption class="label">volatility smile</figcaption></figure>
+          <figure class="shot"><img src="img/nifty-iv-strikes.png" alt="Relative value table comparing each contract's implied volatility with nearby strikes, plus the Greeks for a selected contract" loading="lazy"><figcaption class="label">cheap / expensive</figcaption></figure>
+        </div>
+      </div>
+      <!-- Facts taken from the code, tests and the running app (23 Sep 2026 snapshot) -->
+      <ul class="specs" data-reveal>
+        <li><b>256</b><span class="label">contracts in one snapshot</span></li>
+        <li><b>174</b><span class="label">priced · 82 filtered out</span></li>
+        <li><b>99</b><span class="label">automated tests, all passing</span></li>
+        <li><b>1e-6</b><span class="label">solver price tolerance, ≤200 steps</span></li>
+        <li><b>7</b><span class="label">explicit outcome codes per contract</span></li>
+        <li><b>15:50</b><span class="label">IST weekday auto-collection</span></li>
+      </ul>
+      <div class="write">
+        <div class="item" data-reveal><h4><span>01</span>what it is</h4><p class="draft">An option's price alone doesn't tell you whether it's cheap or expensive. That depends on how much movement the market is pricing in, and that number isn't published anywhere. This tool extracts it: it takes NIFTY option prices from NSE, works backwards through the Black-Scholes-Merton model to the volatility each price implies, and draws the result as a volatility smile. It's aimed at retail traders who only watch price and get caught out by volatility crush after events like the budget or an RBI decision.</p></div>
+        <div class="item" data-reveal><h4><span>02</span>what i built</h4><p class="draft">Four parts with fixed contracts between them. A collector pulls the NIFTY option chain from NSE every weekday at 15:50 IST. A pricing engine computes Black-Scholes-Merton prices and Greeks, and solves for implied volatility by bisection, but only after checking each price sits inside its no-arbitrage bounds, so impossible quotes are rejected instead of “solved”. A PostgreSQL schema stores each run as a snapshot that is published all at once or not at all. The Streamlit reader, on a read-only database role, draws the smile, flags contracts whose IV is 10% or more away from the median of their six nearest strikes, and shows the Greeks for any contract. 99 automated tests cover it.</p></div>
+        <div class="item" data-reveal><h4><span>03</span>challenges</h4><p class="draft">Real market data is messy. Some contracts haven't traded, some are priced at a few paise, some quotes are stale, and each of those produces a nonsense volatility. So every contract gets exactly one of seven outcome codes (zero volume, premium under ₹0.05, strike more than 20% from spot, invalid data, failed arbitrage check, solver didn't converge, or calculated) and nothing is dropped silently: on 23 Sep, 174 of 256 contracts were priced and 82 were excluded with a reason. NSE also blocks automated requests (on 8 Sep the collector was refused with HTTP 403), so it retries, rebuilds its session, and never publishes a half-finished snapshot.</p></div>
+        <div class="item" data-reveal><h4><span>04</span>what i learned</h4><p class="draft">The textbook model assumes volatility is the same at every strike. The market clearly disagrees: on 23 Sep, at-the-money IV was about 8.6% while far out-of-the-money puts were above 70%, which is the market paying up for crash protection. I also learned that a “cheap” or “expensive” flag is only as good as the quote behind it. A big gap from neighbouring strikes is more often a stale price than an opportunity, so the app says that on screen.</p></div>
+        <div class="item" data-reveal><h4><span>05</span>results</h4><p class="draft">It prices a full NIFTY chain in one run (174 of 256 contracts on 23 Sep, every exclusion explained) and all 99 tests pass. <span class="todo-i">[add who has used it, or what you're adding next]</span></p></div>
+      </div>
+    </div>
+  </article>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head label" data-reveal><span class="num">(02)</span><span>about</span><span class="rule"></span><span>who's building</span></div>
+    <div class="about">
+      <div class="pic" data-reveal>
+        <div class="window">
+          <div class="chrome"><i></i><i></i><i></i><span class="url">devansh.jpg — preview</span></div>
+          <div class="screen">
+            <!-- Add a photo: save it as portfolio/img/me.jpg, uncomment the next line, and delete the .ph div.
+            <img src="img/me.jpg" alt="Devansh Aggarwal"> -->
+            <div class="ph"><span class="glow"><span class="led">DA</span></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="txt">
+        <p class="intro draft" data-reveal>I'm Devansh, 18. I like taking something confusing, like a new city or an options chain, and building the tool that makes it make sense. Right now I'm working on the NIFTY IV Explorer.</p>
+        <dl data-reveal>
+          <div><dt class="label">name</dt><dd>Devansh Aggarwal</dd></div>
+          <div><dt class="label">age</dt><dd>18</dd></div>
+          <div><dt class="label">based</dt><dd>[city]</dd></div>
+          <div><dt class="label">now</dt><dd class="draft">NIFTY IV Explorer</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <div class="sec-head label" data-reveal><span class="num">(03)</span><span>contact</span><span class="rule"></span><span>open to talk</span></div>
+    <h2 class="big" data-reveal><span style="display:block">Way to</span><span class="indent glow"><span class="led">://reach</span></span></h2>
+    <ul data-reveal>
+      <li><a href="mailto:devanshaggarwal108@gmail.com"><span data-scramble>email</span><span class="label">devanshaggarwal108@gmail.com</span><span class="go">↗</span></a></li>
+      <li><a href="https://www.linkedin.com/in/devanshaggarwal10/" target="_blank" rel="noopener"><span data-scramble>linkedin</span><span class="label">in/devanshaggarwal10</span><span class="go">↗</span></a></li>
+      <li><a href="https://www.instagram.com/devanshaggarwal_/" target="_blank" rel="noopener"><span data-scramble>instagram</span><span class="label">@devanshaggarwal_</span><span class="go">↗</span></a></li>
+      <!-- Hidden until you have the links. Uncomment and fill in to show them.
+      <li><a href="https://github.com/YOUR-HANDLE" target="_blank" rel="noopener"><span data-scramble>github</span><span class="label">[code]</span><span class="go">↗</span></a></li>
+      <li><a href="https://x.com/YOUR-HANDLE" target="_blank" rel="noopener"><span data-scramble>x / twitter</span><span class="label">[posts]</span><span class="go">↗</span></a></li> -->
+      <!-- Delete any you don't use; add YouTube, writing, etc. -->
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer class="label">
+  <span>© 2026 Devansh Aggarwal</span>
+  <span>devansh<span class="acc">://</span>aggarwal</span>
+  <a href="#top">back to top ↑</a>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot"><div><img id="lbImg" alt=""><p class="label">click or press esc to close</p></div></div>
+
+<div class="peek" aria-hidden="true">
+  <div class="window"><div class="chrome"><i></i><i></i><i></i><span class="url" id="peekUrl"></span></div>
+    <div class="screen" id="peekScreen"><img id="peekImg" alt=""><div class="ph"><span class="glow"><span class="led" id="peekTxt"></span></span></div></div></div>
+</div>
+
+<script>
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(pointer: fine)').matches;
+  window.pointer = { x: 0, y: 0 };   // -1..1, shared with the 3D object
+
+  // index.html?drafts outlines every AI-written draft that still needs rewriting
+  if (/[?&]drafts\b/.test(location.search)) document.body.classList.add('show-drafts');
+
+  // Loader: type the name, then reveal the page
+  (function () {
+    const el = document.getElementById('loadtype'), loader = document.getElementById('loader');
+    const go = () => { loader.classList.add('done'); document.body.classList.add('ready'); };
+    if (reduce) return go();
+    const text = 'devansh://aggarwal'; let i = 0;
+    const t = setInterval(() => {
+      el.textContent = text.slice(0, ++i);
+      if (i >= text.length) { clearInterval(t); setTimeout(go, 350); }
+    }, 40);
+  })();
+
+  // Accent colour switcher (remembers the choice in this browser)
+  (function () {
+    const themes = ['ultra', 'amber', 'acid', 'ice', 'blood'];
+    const root = document.documentElement, label = document.getElementById('themeName');
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (e) {}
+    const apply = t => { root.dataset.theme = t; label.textContent = t; };
+    apply(themes.includes(saved) ? saved : themes[0]);
+    document.getElementById('themeBtn').addEventListener('click', () => {
+      const next = themes[(themes.indexOf(root.dataset.theme) + 1) % themes.length];
+      apply(next);
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    });
+  })();
+
+  // Local clock in the nav. Change TZ to your own time zone.
+  (function () {
+    const TZ = 'Asia/Kolkata', TZ_LABEL = 'IST';
+    const el = document.getElementById('clock');
+    document.getElementById('tz').textContent = TZ_LABEL;
+    const fmt = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: TZ });
+    const tick = () => { el.textContent = fmt.format(new Date()); };
+    tick(); setInterval(tick, 1000);
+  })();
+
+  // Nav: hide while scrolling down, show when scrolling up; highlight the current section
+  (function () {
+    const nav = document.querySelector('.nav');
+    let last = scrollY;
+    addEventListener('scroll', () => {
+      const y = scrollY;
+      nav.classList.toggle('hide', y > last && y > 300);
+      last = y;
+    }, { passive: true });
+    const links = [...document.querySelectorAll('.links a')];
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    ['work', 'about', 'contact'].forEach(id => io.observe(document.getElementById(id)));
+  })();
+
+  // Background: slow smoke, tinted with the accent colour (WebGL)
+  (function () {
+    const canvas = document.getElementById('bgfx');
+    const gl = canvas.getContext('webgl', { antialias: false });
+    if (!gl) { canvas.remove(); return; }
+    const vs = 'attribute vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }';
+    const fs = `
+      precision mediump float;
+      uniform vec2 r; uniform float t; uniform vec3 c;
+      float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
+      float n(vec2 p){ vec2 i = floor(p), f = fract(p); f = f*f*(3.0-2.0*f);
+        return mix(mix(h(i), h(i+vec2(1,0)), f.x), mix(h(i+vec2(0,1)), h(i+vec2(1,1)), f.x), f.y); }
+      float fbm(vec2 p){ float v = 0.0, a = 0.5;
+        for (int i = 0; i < 5; i++) { v += a * n(p); p = p * 2.02 + vec2(1.7, 9.2); a *= 0.5; } return v; }
+      void main(){
+        vec2 uv = gl_FragCoord.xy / r.y;
+        float T = t * 0.02;
+        vec2 q = vec2(fbm(uv * 1.4 + T), fbm(uv * 1.4 - T + 5.2));
+        vec2 w = vec2(fbm(uv * 1.6 + 3.0 * q + vec2(1.7, 9.2) + T * 1.3), fbm(uv * 1.6 + 3.0 * q + vec2(8.3, 2.8) - T));
+        float f = fbm(uv * 1.2 + 3.5 * w);
+        float glow = smoothstep(0.35, 0.95, f);
+        vec3 col = vec3(0.027, 0.023, 0.043) + c * (0.22 * glow * glow);
+        col += (h(gl_FragCoord.xy + t) - 0.5) / 255.0;
+        gl_FragColor = vec4(col, 1.0);
+      }`;
+    const sh = (type, src) => { const o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o); return o; };
+    const prog = gl.createProgram();
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, vs)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) { canvas.remove(); return; }
+    gl.useProgram(prog);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'p');
+    gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const uR = gl.getUniformLocation(prog, 'r'), uT = gl.getUniformLocation(prog, 't'), uC = gl.getUniformLocation(prog, 'c');
+    const scale = Math.min(devicePixelRatio || 1, 1.5);
+    const resize = () => { canvas.width = Math.ceil(innerWidth * scale); canvas.height = Math.ceil(innerHeight * scale); gl.viewport(0, 0, canvas.width, canvas.height); };
+    const colour = () => { const v = getComputedStyle(document.documentElement).getPropertyValue('--rgb').split(',').map(x => parseFloat(x) / 255);
+      return v.length === 3 && v.every(x => !isNaN(x)) ? v : [0.66, 0.52, 1]; };
+    let rgb = colour();
+    const draw = time => { gl.uniform2f(uR, canvas.width, canvas.height); gl.uniform1f(uT, time); gl.uniform3f(uC, rgb[0], rgb[1], rgb[2]); gl.drawArrays(gl.TRIANGLES, 0, 3); };
+    new MutationObserver(() => { rgb = colour(); if (reduce) draw(20); }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    addEventListener('resize', () => { resize(); if (reduce) draw(20); });
+    resize();
+    if (reduce) { draw(20); return; }
+    let last = 0;
+    (function loop(now) {
+      requestAnimationFrame(loop);
+      if (document.hidden || now - last < 33) return;
+      last = now; draw(now / 1000 + 20);
+    })(0);
+  })();
+
+  // Reveal on scroll
+  (function () {
+    const els = document.querySelectorAll('[data-reveal]');
+    if (reduce || !('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('in')); return; }
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }), { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(e => io.observe(e));
+  })();
+
+  // Pointer position (for the 3D object) + project preview that follows the cursor
+  (function () {
+    addEventListener('pointermove', e => {
+      pointer.x = e.clientX / innerWidth * 2 - 1;
+      pointer.y = e.clientY / innerHeight * 2 - 1;
+    }, { passive: true });
+    if (!fine || reduce) return;
+    const peek = document.querySelector('.peek'), txt = document.getElementById('peekTxt'), url = document.getElementById('peekUrl');
+    const screen = document.getElementById('peekScreen'), img = document.getElementById('peekImg');
+    let x = 0, y = 0, tx = 0, ty = 0, raf = 0;
+    const follow = () => { x += (tx - x) * .15; y += (ty - y) * .15; peek.style.left = x + 'px'; peek.style.top = y + 'px';
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > .5 ? requestAnimationFrame(follow) : 0; };
+    document.querySelectorAll('.row[data-peek]').forEach(row => {
+      row.addEventListener('pointerenter', e => {
+        txt.textContent = row.dataset.peek; url.textContent = row.dataset.url;
+        // rows with data-img show the real screenshot instead of the LED placeholder
+        screen.classList.toggle('has-img', !!row.dataset.img);
+        if (row.dataset.img) img.src = row.dataset.img; else img.removeAttribute('src');
+        if (!peek.classList.contains('on')) { x = tx = e.clientX + 200; y = ty = e.clientY; follow(); }
+        peek.classList.add('on');
+      });
+      row.addEventListener('pointermove', e => { tx = e.clientX + 200; ty = e.clientY; if (!raf) raf = requestAnimationFrame(follow); });
+      row.addEventListener('pointerleave', () => peek.classList.remove('on'));
+    });
+  })();
+
+  // Click a project screenshot to open it full size
+  (function () {
+    const box = document.getElementById('lightbox'), big = document.getElementById('lbImg');
+    let from = null;
+    const close = () => { box.classList.remove('on'); if (from) from.focus(); };
+    document.querySelectorAll('.shot img, .phone img').forEach(img => {
+      img.tabIndex = 0;
+      const open = () => { from = img; big.src = img.src; big.alt = img.alt; box.classList.add('on'); box.focus(); };
+      img.addEventListener('click', open);
+      img.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    });
+    box.tabIndex = -1;
+    box.addEventListener('click', close);
+    addEventListener('keydown', e => { if (e.key === 'Escape' && box.classList.contains('on')) close(); });
+  })();
+
+  // Scramble text on hover
+  (function () {
+    const chars = '!<>-_\\/[]{}=+*^?#01';
+    document.querySelectorAll('[data-scramble]').forEach(el => {
+      const original = el.textContent, host = el.closest('a') || el;
+      let timer;
+      host.addEventListener('mouseenter', () => {
+        if (reduce) return;
+        let f = 0; clearInterval(timer);
+        timer = setInterval(() => {
+          el.textContent = original.split('').map((c, i) => i < f / 2 || c === ' ' ? c : chars[Math.floor(Math.random() * chars.length)]).join('');
+          if (++f > original.length * 2) { clearInterval(timer); el.textContent = original; }
+        }, 28);
+      });
+    });
+  })();
+</script>
+<script type="importmap">
+  { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+  // 3D particle planet with an orbit ring, drawn inside the hero "plate". Colour follows the accent.
+  import * as THREE from 'three';
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canvas = document.getElementById('orb');
+  const plate = canvas.parentElement;
+  let renderer = null;
+  try { renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true }); }
+  catch (e) { canvas.remove(); }
+
+  if (renderer) {
+    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
+    camera.position.z = 7.4;
+
+    const readColour = () => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue('--rgb').split(',').map(x => parseFloat(x) / 255);
+      return new THREE.Color(v[0] || .66, v[1] || .52, v[2] || 1);
+    };
+    const uniforms = {
+      uTime: { value: 0 }, uColor: { value: readColour() },
+      uPixel: { value: renderer.getPixelRatio() }, uBoost: { value: 1.0 },
+    };
+    const vertexShader = `
+      uniform float uTime; uniform float uPixel; uniform float uBoost;
+      attribute float aSeed; varying float vAlpha;
+      void main() {
+        vec3 p = position;
+        float wave = sin(p.x * 3.0 + uTime * 0.9) * cos(p.y * 3.5 - uTime * 0.7) * sin(p.z * 2.5 + uTime * 0.5);
+        p *= 1.0 + 0.012 * wave;
+        vec4 mv = modelViewMatrix * vec4(p, 1.0);
+        gl_Position = projectionMatrix * mv;
+        float twinkle = 0.6 + 0.4 * sin(uTime * 2.0 + aSeed * 40.0);
+        gl_PointSize = (2.2 + 3.0 * aSeed) * uPixel * (7.0 / -mv.z);
+        vAlpha = uBoost * twinkle * smoothstep(-11.0, -5.0, mv.z) * (0.55 + 0.45 * (wave * 0.5 + 0.5));
+      }`;
+    const fragmentShader = `
+      uniform vec3 uColor; varying float vAlpha;
+      void main() {
+        float d = length(gl_PointCoord - 0.5);
+        float a = smoothstep(0.5, 0.0, d);
+        gl_FragColor = vec4(mix(uColor, vec3(1.0), a * 0.35), a * vAlpha);
+      }`;
+    const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending });
+
+    const small = innerWidth < 700;
+    const N = small ? 5000 : 9000;
+    const pos = new Float32Array(N * 3), seed = new Float32Array(N);
+    const golden = Math.PI * (3 - Math.sqrt(5));
+    for (let i = 0; i < N; i++) {
+      const y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), th = golden * i, R = 1.5;
+      pos.set([Math.cos(th) * r * R, y * R, Math.sin(th) * r * R], i * 3);
+      seed[i] = Math.random();
+    }
+    const sphereGeo = new THREE.BufferGeometry();
+    sphereGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    sphereGeo.setAttribute('aSeed', new THREE.BufferAttribute(seed, 1));
+    const sphere = new THREE.Points(sphereGeo, material);
+
+    const M = small ? 4000 : 8000;
+    const rpos = new Float32Array(M * 3), rseed = new Float32Array(M);
+    for (let i = 0; i < M; i++) {
+      const a = Math.random() * Math.PI * 2, rad = 2.0 + Math.pow(Math.random(), 1.6) * 0.55;
+      rpos.set([Math.cos(a) * rad, (Math.random() - .5) * 0.04, Math.sin(a) * rad], i * 3);
+      rseed[i] = Math.random() * 0.6;
+    }
+    const ringGeo = new THREE.BufferGeometry();
+    ringGeo.setAttribute('position', new THREE.BufferAttribute(rpos, 3));
+    ringGeo.setAttribute('aSeed', new THREE.BufferAttribute(rseed, 1));
+    const ringMat = material.clone();
+    ringMat.uniforms = { ...uniforms, uBoost: { value: 1.5 } };
+    const ring = new THREE.Points(ringGeo, ringMat);
+    ring.rotation.order = 'ZXY';   // spin (Y) happens in the ring's own plane, then tilt
+    ring.rotation.set(0.42, 0, 0.32);
+
+    new MutationObserver(() => { uniforms.uColor.value = readColour(); })
+      .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    const group = new THREE.Group();
+    group.add(sphere, ring);
+    scene.add(group);
+
+    function resize() {
+      const w = plate.clientWidth, h = plate.clientHeight;
+      if (!w || !h) return;
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      // keep the ring (radius ~2.55) inside the plate whatever its shape
+      const halfW = camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.aspect;
+      group.scale.setScalar(Math.min(1, halfW * 0.86 / 2.55));
+    }
+    new ResizeObserver(resize).observe(plate);
+    resize();
+
+    const rot = document.getElementById('rot');
+    let rx = 0, ry = 0, visible = true;
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(plate);
+    const clock = new THREE.Clock();
+    function frame() {
+      const t = clock.getElapsedTime();
+      uniforms.uTime.value = t;
+      sphere.rotation.y = t * 0.08;
+      ring.rotation.y = t * 0.05;
+      const p = window.pointer || { x: 0, y: 0 };
+      rx += (p.y * 0.3 - rx) * 0.05;
+      ry += (p.x * 0.5 - ry) * 0.05;
+      group.rotation.set(rx, ry, 0);
+      rot.textContent = ((sphere.rotation.y * 180 / Math.PI) % 360).toFixed(1).padStart(5, '0');
+      renderer.render(scene, camera);
+    }
+    if (reduce) frame();
+    else renderer.setAnimationLoop(() => { if (!document.hidden && visible) frame(); });
+  }
+</script>
+</body>
+</html>
