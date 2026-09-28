@@ -232,7 +232,16 @@
   @keyframes scan { to { top: 100%; } }
 
   /* ---------- Case study ---------- */
-  .case { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; padding: 12vh 0; border-top: 1px solid var(--line); }
+  .case { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; padding: 6vh 0 12vh; border-top: 1px solid var(--line); scroll-margin-top: 24px; }
+  /* A project's details stay hidden until its row in the work index is clicked (#circle, #nifty-iv...) */
+  .case:not(:target) { display: none; }
+  .case:target { animation: caseIn .7s var(--ease); }
+  @keyframes caseIn { from { opacity: 0; transform: translateY(24px); } }
+  .case .close { display: inline-flex; margin-bottom: 26px; padding: 8px 14px; border: 1px solid var(--line-2); border-radius: 999px; transition: color .25s, border-color .25s; }
+  .case .close:hover { color: var(--fg); border-color: var(--c); }
+  .row.active::before { transform: none; }
+  .row.active .go { color: var(--c); transform: rotate(90deg); }
+  .index-hint { margin-top: 18px; }
   .case .meta { grid-column: 1 / span 4; align-self: start; position: sticky; top: 100px; }
   .case .main { grid-column: 5 / span 8; }
   .case .idx { font: 700 clamp(72px, 8vw, 130px)/.8 var(--display); }
@@ -421,6 +430,7 @@
         <span class="mono mute">01</span><span class="t">NIFTY IV Explorer</span><span class="c-type mono mute">options model</span><span class="c-status mono status wip">runs locally</span><span class="go">↗</span>
       </a>
     </div>
+    <p class="label index-hint" data-reveal>click a project to see the details ↓</p>
   </div>
 </section>
 
@@ -428,14 +438,14 @@
   <!-- ===== PROJECT 00 ===== -->
   <article class="case" id="circle">
     <aside class="meta" data-reveal>
+      <a class="close label" href="#work">× close</a>
       <div class="idx"><span class="glow"><span class="led">00</span></span></div>
       <h3>Circle</h3>
       <dl>
         <dt>type</dt><dd>mobile web app</dd>
         <dt>for</dt><dd>students new to Chennai</dd>
         <dt>role</dt><dd><span class="draft">idea, design and build</span></dd>
-        <!-- Next.js + Vercel are confirmed from the live site; add the rest of what you used -->
-        <dt>stack</dt><dd><ul class="chips"><li>Next.js</li><li>Vercel</li><li>[tool]</li></ul></dd>
+        <dt>stack</dt><dd><ul class="chips"><li>Next.js</li><li>Supabase</li><li>Vercel</li></ul></dd>
       </dl>
       <div class="actions">
         <a class="btn solid" href="https://madrasi-pi.vercel.app/" target="_blank" rel="noopener">live app <span class="arr">↗</span></a>
@@ -466,6 +476,7 @@
        To add another project: copy a whole <article>, give it a new id, and add a matching row to the work index above. -->
   <article class="case" id="nifty-iv">
     <aside class="meta" data-reveal>
+      <a class="close label" href="#work">× close</a>
       <div class="idx"><span class="glow"><span class="led">01</span></span></div>
       <h3>NIFTY Implied-Volatility Explorer</h3>
       <dl>
@@ -735,6 +746,8 @@
     let x = 0, y = 0, tx = 0, ty = 0, raf = 0;
     const follow = () => { x += (tx - x) * .15; y += (ty - y) * .15; peek.style.left = x + 'px'; peek.style.top = y + 'px';
       raf = Math.abs(tx - x) + Math.abs(ty - y) > .5 ? requestAnimationFrame(follow) : 0; };
+    // the page scrolls when a project opens, so drop the preview instead of leaving it stranded
+    addEventListener('scroll', () => peek.classList.remove('on'), { passive: true });
     document.querySelectorAll('.row[data-peek]').forEach(row => {
       row.addEventListener('pointerenter', e => {
         txt.textContent = row.dataset.peek; url.textContent = row.dataset.url;
@@ -746,6 +759,7 @@
       });
       row.addEventListener('pointermove', e => { tx = e.clientX + 200; ty = e.clientY; if (!raf) raf = requestAnimationFrame(follow); });
       row.addEventListener('pointerleave', () => peek.classList.remove('on'));
+      row.addEventListener('click', () => peek.classList.remove('on'));
     });
   })();
 
@@ -763,6 +777,13 @@
     box.tabIndex = -1;
     box.addEventListener('click', close);
     addEventListener('keydown', e => { if (e.key === 'Escape' && box.classList.contains('on')) close(); });
+  })();
+
+  // Highlight the row of the project that's currently open
+  (function () {
+    const rows = [...document.querySelectorAll('.row[href^="#"]')];
+    const mark = () => rows.forEach(r => r.classList.toggle('active', r.getAttribute('href') === location.hash));
+    addEventListener('hashchange', mark); mark();
   })();
 
   // Scramble text on hover
