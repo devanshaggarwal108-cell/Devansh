@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Devansh Aggarwal · Portfolio</title>
-<meta name="description" content="Projects built by Devansh Aggarwal.">
+<meta name="description" content="Devansh Aggarwal, 18. Still learning, still building. Projects, journey and contact.">
 <meta property="og:title" content="Devansh Aggarwal · Portfolio">
-<meta property="og:description" content="Projects built by Devansh Aggarwal.">
+<meta property="og:description" content="Devansh Aggarwal, 18. Still learning, still building.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#07060b">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2307060b'/%3E%3Crect x='3' y='3' width='26' height='26' fill='none' stroke='%23a884ff' stroke-width='2.5'/%3E%3Ctext x='16' y='22' font-family='Arial Narrow,Arial' font-weight='700' font-size='14' fill='%23a884ff' text-anchor='middle'%3EDA%3C/text%3E%3C/svg%3E">
@@ -118,10 +118,10 @@
   .hero-wrap { position: relative; }
   .hero { min-height: 100svh; display: grid; grid-template-columns: repeat(12, 1fr); gap: 0 24px; align-items: center;
     padding-top: 110px; padding-bottom: 90px; }
-  .hero-text { grid-column: 1 / span 7; }
+  .hero-text { grid-column: 1 / span 10; }
   .hero .kicker { margin-bottom: 28px; }
   .hero .kicker .acc::before { content: "> "; }
-  .name { font: 700 clamp(64px, 10.2vw, 172px)/.84 var(--display); text-transform: uppercase; letter-spacing: -.005em; }
+  .name { font: 700 clamp(64px, 12.5vw, 220px)/.84 var(--display); text-transform: uppercase; letter-spacing: -.005em; }
   /* extra padding (cancelled by negative margin) gives the glow room so the clip doesn't cut it into a box */
   .name .line { display: block; overflow: hidden; padding: .14em .3em .14em; margin: -.14em -.3em -.1em; }
   .name .line > span { display: inline-block; transform: translateY(135%); transition: transform 1.1s var(--ease); }
@@ -139,30 +139,10 @@
   .btn .arr { transition: transform .3s var(--ease); }
   .btn:hover .arr { transform: translateX(4px); }
 
-  /* 3D object: framed, like a specimen plate */
-  .plate { grid-column: 8 / span 5; position: relative; aspect-ratio: 4 / 5; border: 1px solid var(--line-2);
-    clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 28px 100%, 0 calc(100% - 28px));
-    background: radial-gradient(60% 50% at 50% 50%, rgba(var(--rgb), .10), transparent 70%); }
-  .plate canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .plate .tag { position: absolute; font: 500 11px/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--mute); pointer-events: none; }
-  .plate .tl { top: 14px; left: 16px; } .plate .tr { top: 14px; right: 40px; text-align: right; }
-  .plate .bl { bottom: 14px; left: 40px; } .plate .br { bottom: 14px; right: 16px; text-align: right; }
-  .plate .cross { position: absolute; width: 14px; height: 14px; pointer-events: none; }
-  .plate .cross::before, .plate .cross::after { content: ""; position: absolute; background: var(--c); }
-  .plate .cross::before { left: 6px; top: 0; width: 2px; height: 14px; } .plate .cross::after { top: 6px; left: 0; width: 14px; height: 2px; }
-  .plate .c1 { top: 50%; left: 10px; margin-top: -7px; } .plate .c2 { top: 50%; right: 10px; margin-top: -7px; }
 
   .scroll-cue { position: absolute; left: var(--pad); bottom: 28px; }
   .scroll-cue span { display: inline-block; animation: nudge 1.8s var(--ease) infinite; }
   @keyframes nudge { 50% { transform: translateY(4px); } }
-
-  /* ---------- Ticker ---------- */
-  .ticker { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; white-space: nowrap; padding: 18px 0;
-    background: rgba(7,6,11,.6); }
-  .ticker .track { display: inline-block; animation: tick 34s linear infinite; font: 700 clamp(22px, 2.4vw, 34px)/1 var(--display); text-transform: uppercase; letter-spacing: .01em; }
-  .ticker span { margin: 0 22px; }
-  .ticker .star { color: var(--c); }
-  @keyframes tick { to { transform: translateX(-50%); } }
 
   /* ---------- Section heading row ---------- */
   section { padding: 16vh 0; position: relative; }
@@ -265,7 +245,7 @@
   .case .actions .btn { padding: 11px 18px; font-size: 13px; }
   .case .main .window { aspect-ratio: 16 / 10; }
   /* Key numbers for a project (facts, not prose) */
-  .specs { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr);
+  .specs { list-style: none; margin: 44px 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr);
     border-top: 1px solid var(--line-2); border-left: 1px solid var(--line); }
   .specs li { padding: 20px 18px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .specs b { display: block; font: 700 clamp(30px, 3vw, 46px)/1 var(--display); color: var(--fg); margin-bottom: 8px; }
@@ -290,10 +270,37 @@
   .about .txt { grid-column: 6 / span 7; }
   .about .intro { font: 400 clamp(22px, 2.2vw, 32px)/1.45 var(--sans); letter-spacing: -.01em; }
   .about .intro.todo { font-size: clamp(18px, 1.6vw, 22px); }
+  .bio { margin-top: 32px; max-width: 62ch; }
+  .bio p { margin: 0 0 1.1em; font: 400 clamp(16px, 1.2vw, 18px)/1.7 var(--sans); color: #d8d4e2; }
+  .bio .open { margin-top: 1.6em; font: 500 14px/1 var(--mono); color: var(--fg); letter-spacing: .02em; }
+  .avail { display: inline-flex; align-items: center; margin-left: 12px; padding: 6px 12px; border: 1px solid rgba(61,220,132,.45);
+    border-radius: 999px; color: #9ff0c4; background: rgba(61,220,132,.08); transition: background .3s; }
+  .avail:hover { background: rgba(61,220,132,.16); }
   .about dl { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 24px; margin-top: 48px; }
   .about dl div { padding: 16px 0; border-top: 1px solid var(--line); }
   .about dt { margin-bottom: 4px; }
   .about dd { font: 500 16px/1.4 var(--mono); }
+
+  /* ---------- Journey timeline ---------- */
+  .journey { margin-top: 14vh; }
+  .jtop { margin-bottom: 48px; }
+  .jtitle { margin-top: 14px; font: 700 clamp(40px, 5.2vw, 84px)/.92 var(--display); text-transform: uppercase; }
+  .jl { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 0 28px; position: relative; }
+  .jl::before { content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 1px; background: var(--line-2); }
+  .jl li { position: relative; padding-top: 34px; }
+  .jl li::before { content: ""; position: absolute; top: 2px; left: 0; width: 11px; height: 11px; border-radius: 50%;
+    background: var(--bg); border: 1.5px solid var(--mute); }
+  .jl li.now::before { background: var(--c); border-color: var(--c); box-shadow: 0 0 12px var(--c); animation: pulse 2s infinite; }
+  .jl .when { display: block; margin-bottom: 10px; }
+  .jl .when b { color: var(--c); font-weight: 600; margin-right: 6px; }
+  .jl .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .jl .tags span { font: 500 11px/1 var(--mono); letter-spacing: .04em; text-transform: uppercase; color: var(--mute);
+    border: 1px solid var(--line-2); border-radius: 999px; padding: 6px 10px; }
+  .jl .tags span.on { color: #9ff0c4; border-color: rgba(61,220,132,.45); background: rgba(61,220,132,.08); }
+  .jl .tags .dot { width: 6px; height: 6px; margin-right: 6px; vertical-align: 1px; }
+  .jl li.now .when { color: var(--c); }
+  .jl h3 { font: 700 clamp(20px, 1.7vw, 26px)/1.08 var(--display); text-transform: uppercase; margin-bottom: 10px; }
+  .jl p { margin: 0; font: 400 14px/1.55 var(--sans); color: #cfcadb; }
 
   /* ---------- Contact ---------- */
   .contact .big { font: 700 clamp(64px, 12.5vw, 220px)/.84 var(--display); text-transform: uppercase; margin-bottom: 64px; }
@@ -313,23 +320,26 @@
   /* ---------- Reveal on scroll ---------- */
   [data-reveal] { opacity: 0; transform: translateY(40px); transition: opacity .9s, transform 1s var(--ease); }
   [data-reveal].in { opacity: 1; transform: none; }
-  .hero-text > *:not(.name), .plate { opacity: 0; transform: translateY(20px); transition: opacity .9s .35s, transform 1s .35s var(--ease); }
-  body.ready .hero-text > *, body.ready .plate { opacity: 1; transform: none; }
+  .hero-text > *:not(.name) { opacity: 0; transform: translateY(20px); transition: opacity .9s .35s, transform 1s .35s var(--ease); }
+  body.ready .hero-text > * { opacity: 1; transform: none; }
 
   /* ---------- Responsive ---------- */
   @media (max-width: 980px) {
     .hero { grid-template-columns: 1fr; padding-top: 96px; gap: 40px; }
-    .hero-text, .plate { grid-column: 1 / -1; }
-    .plate { aspect-ratio: 1 / 1; max-height: 70vh; }
+    .hero-text { grid-column: 1 / -1; }
     .row { grid-template-columns: 44px 1fr 110px 30px; }
     .row .c-type { display: none; }
     .case .meta, .case .main, .about .pic, .about .txt { grid-column: 1 / -1; }
     .case .meta { position: static; }
     .about .pic { max-width: 360px; }
+    .jl { grid-template-columns: 1fr; gap: 0; padding-left: 28px; }
+    .jl::before { left: 5px; right: auto; top: 6px; bottom: 6px; width: 1px; height: auto; }
+    .jl li { padding: 0 0 30px; }
+    .jl li::before { left: -28px; top: 1px; }
   }
   @media (max-width: 640px) {
     .nav { grid-template-columns: auto 1fr; }
-    .links, .nav .clock { display: none; }
+    .links { display: none; }
     .row { grid-template-columns: 34px 1fr 24px; padding: 20px 4px; }
     .row .c-status { display: none; }
     .write .item { grid-template-columns: 1fr; gap: 10px; }
@@ -339,6 +349,8 @@
     .contact li a { grid-template-columns: auto minmax(0, 1fr) 20px; gap: 12px; }
     .contact li .label { font-size: 11px; }
     .peek, .scroll-cue { display: none; }
+    .jtitle br { display: none; }
+    .avail { display: flex; width: fit-content; margin: 10px 0 0; }
     .case .main .window:has(.phones) { aspect-ratio: 1 / 1; }
     .window .phones { gap: 3%; padding: 6% 3% 9%; }
     .phone img { border-width: 2px; border-radius: 10px; }
@@ -347,7 +359,7 @@
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
-    [data-reveal], .hero-text > *, .plate, .name .line > span { opacity: 1 !important; transform: none !important; }
+    [data-reveal], .hero-text > *, .name .line > span { opacity: 1 !important; transform: none !important; }
     html { scroll-behavior: auto; }
   }
 </style>
@@ -365,7 +377,6 @@
     <a href="#work">work</a><a href="#about">about</a><a href="#contact">contact</a>
   </div>
   <div class="right">
-    <span class="clock mute"><span class="dot"></span><span id="clock">--:--</span> <span id="tz"></span></span>
     <button class="theme-btn" id="themeBtn" type="button" aria-label="Change accent colour"><i></i><span id="themeName">ultra</span></button>
   </div>
 </nav>
@@ -375,41 +386,24 @@
 <div class="hero-wrap">
   <header class="hero wrap">
     <div class="hero-text">
-      <p class="kicker label"><span class="acc">portfolio</span> · 2026 · age 18</p>
+      <p class="kicker label"><span class="acc">portfolio</span> · 2026 · age 18 <a class="avail" href="#contact"><span class="dot"></span>open to internships</a></p>
       <h1 class="name">
         <span class="line"><span>Devansh</span></span>
         <span class="line"><span class="glow"><span class="led">Aggarwal</span></span></span>
       </h1>
       <div class="bar"></div>
       <p class="facts-hero">
-        <b>18.</b> <span class="draft">I build tools that make confusing things usable.</span><br>
-        now building · <span class="draft" style="color:var(--fg)">NIFTY IV Explorer</span><br>
-        based in · <span class="todo-i">[city]</span>
+        <b>18.</b> <span style="color:var(--fg)">Still learning, still building.</span><br>
+        studying · <span style="color:var(--fg)">IVB · IIM Bangalore BBA (DBE)</span><br>
+        from · <span style="color:var(--fg)">Karnal</span> → based in · <span style="color:var(--fg)">Chennai</span>
       </p>
       <div class="cta">
         <a class="btn solid" href="#work">see the work <span class="arr">→</span></a>
         <a class="btn" href="#contact">get in touch</a>
       </div>
     </div>
-
-    <div class="plate" aria-hidden="true">
-      <canvas id="orb"></canvas>
-      <span class="tag tl">fig.01 — orbit</span>
-      <span class="tag tr">n=17,000 pts</span>
-      <span class="tag bl">rot <span id="rot">000.0</span>°</span>
-      <span class="tag br">move cursor</span>
-      <span class="cross c1"></span><span class="cross c2"></span>
-    </div>
   </header>
   <a class="scroll-cue label" href="#work">scroll <span>↓</span></a>
-</div>
-
-<!-- Stack ticker: edit the tools to match what you actually use -->
-<div class="ticker" aria-hidden="true">
-  <div class="track">
-    <span>Python</span><span class="star">✦</span><span>Next.js</span><span class="star">✦</span><span>Streamlit</span><span class="star">✦</span><span>PostgreSQL</span><span class="star">✦</span><span>Plotly</span><span class="star">✦</span><span>Vercel</span><span class="star">✦</span><span>Black-Scholes</span><span class="star">✦</span>
-    <span>Python</span><span class="star">✦</span><span>Next.js</span><span class="star">✦</span><span>Streamlit</span><span class="star">✦</span><span>PostgreSQL</span><span class="star">✦</span><span>Plotly</span><span class="star">✦</span><span>Vercel</span><span class="star">✦</span><span>Black-Scholes</span><span class="star">✦</span>
-  </div>
 </div>
 
 <!-- ============ WORK ============ -->
@@ -459,11 +453,11 @@
         </div>
       </div>
       <div class="write">
-        <div class="item" data-reveal><h4><span>01</span>what it is</h4><p class="draft">Moving to Chennai for college means a language you don't speak, auto fares that change with the driver's mood, and a city you don't know yet. Circle is a mobile web app that gets a new student through those first weeks: enough Tamil for daily life, what each way of getting around actually costs, and places worth going.</p></div>
-        <div class="item" data-reveal><h4><span>02</span>what i built</h4><p class="draft">A mobile-first Next.js app, deployed on Vercel. The Tamil section is organised around situations students actually hit (an auto to college, ordering at a mess, bargaining on Ranganathan Street, an emergency), with every line in Tamil script, a pronunciation guide and audio. Travel compares cycling, the suburban train, MTC buses, the metro and share autos for a given distance and highlights the cheapest. Explore lists places with their cost, category and how crowded they get. Everything works as a guest; an account is optional and only exists so progress survives a reinstall.</p></div>
-        <div class="item" data-reveal><h4><span>03</span>challenges</h4><p class="draft">Audio pronunciation depends on the phone having a Tamil voice installed, and many don't. Rather than failing silently, Circle falls back to an approximate pronunciation and tells the user it's doing so. The other problem was friction: a student who just arrived shouldn't have to sign up before getting help, so guest mode is the default and saving an account is a later, optional step.</p></div>
-        <div class="item" data-reveal><h4><span>04</span>what i learned</h4><p class="draft">Designing for one person in one place beats designing for everyone. Writing phrases for real moments (“Velachery signal, 8:40 AM”) made the content far more useful than a generic phrasebook would have been.</p></div>
-        <div class="item" data-reveal><h4><span>05</span>results</h4><p class="draft">Live at madrasi-pi.vercel.app. <span class="todo-i">[add users, students who tried it, or feedback]</span></p></div>
+        <div class="item" data-reveal><h4><span>01</span>what it is</h4><p class="draft">A mobile web app that helps students new to Chennai settle in: everyday Tamil, travel costs and places to go.</p></div>
+        <div class="item" data-reveal><h4><span>02</span>what i built</h4><p class="draft">The full app in Next.js on Vercel: Tamil phrases for real situations with pronunciation, a fare comparison across train, bus, metro and auto, and a guide to places with cost and crowd levels.</p></div>
+        <div class="item" data-reveal><h4><span>03</span>challenges</h4><p class="draft">Many phones have no Tamil voice, so the app falls back to an approximate pronunciation instead of going silent. And there's no sign-up wall: it works as a guest from the first tap.</p></div>
+        <div class="item" data-reveal><h4><span>04</span>what i learned</h4><p class="draft">Building for one specific person in one city makes a product far more useful than building for everyone.</p></div>
+        <div class="item" data-reveal><h4><span>05</span>results</h4><p class="draft">Live at madrasi-pi.vercel.app.</p></div>
       </div>
     </div>
   </article>
@@ -477,10 +471,9 @@
       <dl>
         <dt>type</dt><dd>options valuation model</dd>
         <dt>market</dt><dd>NIFTY options (NSE)</dd>
-        <dt>model</dt><dd>Black-Scholes-Merton, inverted by bisection</dd>
-        <dt>signal</dt><dd>IV vs median of the 6 nearest same-type strikes; ±10% = cheap / expensive</dd>
+        <dt>model</dt><dd>Black-Scholes-Merton</dd>
         <dt>role</dt><dd><span class="draft">solo: spec, code and tests</span></dd>
-        <dt>stack</dt><dd><ul class="chips"><li>Python</li><li>Streamlit</li><li>Plotly</li><li>PostgreSQL</li><li>Supabase</li><li>psycopg</li><li>pytest</li><li>NSE data</li></ul></dd>
+        <dt>stack</dt><dd><ul class="chips"><li>Python</li><li>Streamlit</li><li>PostgreSQL</li><li>Plotly</li></ul></dd>
       </dl>
       <!-- Not deployed yet (the README is set up for Streamlit Community Cloud). Add a "live app" button here once it is. -->
       <div class="actions">
@@ -499,17 +492,15 @@
       <ul class="specs" data-reveal>
         <li><b>256</b><span class="label">contracts in one snapshot</span></li>
         <li><b>174</b><span class="label">priced · 82 filtered out</span></li>
-        <li><b>99</b><span class="label">automated tests, all passing</span></li>
-        <li><b>1e-6</b><span class="label">solver price tolerance, ≤200 steps</span></li>
-        <li><b>7</b><span class="label">explicit outcome codes per contract</span></li>
-        <li><b>15:50</b><span class="label">IST weekday auto-collection</span></li>
+        <li><b>99</b><span class="label">tests passing</span></li>
+        <li><b>daily</b><span class="label">auto-collected from NSE</span></li>
       </ul>
       <div class="write">
-        <div class="item" data-reveal><h4><span>01</span>what it is</h4><p class="draft">An option's price alone doesn't tell you whether it's cheap or expensive. That depends on how much movement the market is pricing in, and that number isn't published anywhere. This tool extracts it: it takes NIFTY option prices from NSE, works backwards through the Black-Scholes-Merton model to the volatility each price implies, and draws the result as a volatility smile. It's aimed at retail traders who only watch price and get caught out by volatility crush after events like the budget or an RBI decision.</p></div>
-        <div class="item" data-reveal><h4><span>02</span>what i built</h4><p class="draft">Four parts with fixed contracts between them. A collector pulls the NIFTY option chain from NSE every weekday at 15:50 IST. A pricing engine computes Black-Scholes-Merton prices and Greeks, and solves for implied volatility by bisection, but only after checking each price sits inside its no-arbitrage bounds, so impossible quotes are rejected instead of “solved”. A PostgreSQL schema stores each run as a snapshot that is published all at once or not at all. The Streamlit reader, on a read-only database role, draws the smile, flags contracts whose IV is 10% or more away from the median of their six nearest strikes, and shows the Greeks for any contract. 99 automated tests cover it.</p></div>
-        <div class="item" data-reveal><h4><span>03</span>challenges</h4><p class="draft">Real market data is messy. Some contracts haven't traded, some are priced at a few paise, some quotes are stale, and each of those produces a nonsense volatility. So every contract gets exactly one of seven outcome codes (zero volume, premium under ₹0.05, strike more than 20% from spot, invalid data, failed arbitrage check, solver didn't converge, or calculated) and nothing is dropped silently: on 23 Sep, 174 of 256 contracts were priced and 82 were excluded with a reason. NSE also blocks automated requests (on 8 Sep the collector was refused with HTTP 403), so it retries, rebuilds its session, and never publishes a half-finished snapshot.</p></div>
-        <div class="item" data-reveal><h4><span>04</span>what i learned</h4><p class="draft">The textbook model assumes volatility is the same at every strike. The market clearly disagrees: on 23 Sep, at-the-money IV was about 8.6% while far out-of-the-money puts were above 70%, which is the market paying up for crash protection. I also learned that a “cheap” or “expensive” flag is only as good as the quote behind it. A big gap from neighbouring strikes is more often a stale price than an opportunity, so the app says that on screen.</p></div>
-        <div class="item" data-reveal><h4><span>05</span>results</h4><p class="draft">It prices a full NIFTY chain in one run (174 of 256 contracts on 23 Sep, every exclusion explained) and all 99 tests pass. <span class="todo-i">[add who has used it, or what you're adding next]</span></p></div>
+        <div class="item" data-reveal><h4><span>01</span>what it is</h4><p class="draft">A tool that shows whether NIFTY options are cheap or expensive, by working out the volatility each option's price implies.</p></div>
+        <div class="item" data-reveal><h4><span>02</span>what i built</h4><p class="draft">An NSE data collector, a Black-Scholes-Merton engine that solves for implied volatility and the Greeks, a database of daily snapshots, and a Streamlit dashboard with the volatility smile.</p></div>
+        <div class="item" data-reveal><h4><span>03</span>challenges</h4><p class="draft">Real market data is messy: untraded, tiny or stale quotes give nonsense results. Each one is filtered out with a clear reason, and the collector copes with NSE blocking automated requests.</p></div>
+        <div class="item" data-reveal><h4><span>04</span>what i learned</h4><p class="draft">Markets don't follow the textbook: at-the-money volatility was about 8.6% while far puts were above 70%. And a "cheap" signal is only as good as the quote behind it.</p></div>
+        <div class="item" data-reveal><h4><span>05</span>results</h4><p class="draft">Prices a full NIFTY option chain every run, with 99 tests passing.</p></div>
       </div>
     </div>
   </article>
@@ -518,7 +509,7 @@
 <!-- ============ ABOUT ============ -->
 <section id="about">
   <div class="wrap">
-    <div class="sec-head label" data-reveal><span class="num">(02)</span><span>about</span><span class="rule"></span><span>who's building</span></div>
+    <div class="sec-head label" data-reveal><span class="num">(02)</span><span>about</span><span class="rule"></span><span>still learning, still building</span></div>
     <div class="about">
       <div class="pic" data-reveal>
         <div class="window">
@@ -531,14 +522,59 @@
         </div>
       </div>
       <div class="txt">
-        <p class="intro draft" data-reveal>I'm Devansh, 18. I like taking something confusing, like a new city or an options chain, and building the tool that makes it make sense. Right now I'm working on the NIFTY IV Explorer.</p>
+        <!-- Devansh's own words -->
+        <p class="intro" data-reveal>I’m driven by the questions behind the answers, the patterns behind the numbers, and the strategy hidden within complexity.</p>
+        <div class="bio" data-reveal>
+          <p>I don't chase complexity for its own sake, but when I find something worth understanding, I strip it down to the foundation. My instinct is to break things down, not to overcomplicate, but to understand them deeply before rebuilding them in a better way. Whether it's a problem, a person, or a system, I start with the smallest moving parts and work my way up, connecting threads until the bigger picture becomes clear.</p>
+          <p>I work best alone at first, not out of isolation, but focus.<br>
+          I'm most alive when asking: Why is this the way it is? I want the why, the how, and then the what's next.<br>
+          I want to create something that outlasts me, ideas that outlive me, frameworks others can expand on. I'm drawn to people who can think independently, speak with clarity and depth, and devise solutions in real-time.</p>
+          <p>I’m still learning, still building. I don’t think ideas are meant to end with the person who creates them. If something I create sparks a thought that someone else takes further, that, to me, is a meaningful impact.</p>
+          <p class="open"><span class="dot"></span>Open to internships.</p>
+        </div>
         <dl data-reveal>
           <div><dt class="label">name</dt><dd>Devansh Aggarwal</dd></div>
           <div><dt class="label">age</dt><dd>18</dd></div>
-          <div><dt class="label">based</dt><dd>[city]</dd></div>
-          <div><dt class="label">now</dt><dd class="draft">NIFTY IV Explorer</dd></div>
+          <div><dt class="label">from</dt><dd>Karnal</dd></div>
+          <div><dt class="label">based</dt><dd>Chennai</dd></div>
+          <div><dt class="label">studying</dt><dd>IVB · IIM Bangalore BBA (DBE)</dd></div>
+          <div><dt class="label">now</dt><dd>Investing in myself</dd></div>
         </dl>
       </div>
+    </div>
+
+    <!-- Journey: built from Devansh's own account; the one-liners are lightly edited drafts -->
+    <div class="journey">
+      <div class="jtop" data-reveal>
+        <p class="label">(the journey so far)</p>
+        <h3 class="jtitle draft">Always had the itch <br>to <span class="glow"><span class="led">make money</span></span></h3>
+      </div>
+      <ol class="jl">
+        <li data-reveal>
+          <span class="label when"><b>01</b> class 3 → 11</span>
+          <h3>Played football at national level</h3>
+          <p class="draft">Years of training and multiple nationals. Then I made the hard call that football wasn't going to be my career.</p>
+          <div class="tags"><span>multiple nationals</span><span>9 years</span></div>
+        </li>
+        <li data-reveal>
+          <span class="label when"><b>02</b> class 9 → 10</span>
+          <h3>Built a dropshipping store</h3>
+          <p class="draft">My first go at making money online. I built the store from scratch; it never launched, but the itch stuck.</p>
+          <div class="tags"><span>first business</span><span>e-commerce</span></div>
+        </li>
+        <li data-reveal>
+          <span class="label when"><b>03</b> next</span>
+          <h3>Traded with my own money</h3>
+          <p class="draft">Made profits trading crypto, then moved into Indian markets. Took real losses in options too.</p>
+          <div class="tags"><span>crypto</span><span>indian markets</span><span>options</span></div>
+        </li>
+        <li class="now" data-reveal>
+          <span class="label when"><b>04</b> now</span>
+          <h3>Investing in myself</h3>
+          <p>Still learning, still building.</p>
+          <div class="tags"><span class="on"><i class="dot"></i>open to internships</span></div>
+        </li>
+      </ol>
     </div>
   </div>
 </section>
@@ -546,7 +582,7 @@
 <!-- ============ CONTACT ============ -->
 <section id="contact" class="contact">
   <div class="wrap">
-    <div class="sec-head label" data-reveal><span class="num">(03)</span><span>contact</span><span class="rule"></span><span>open to talk</span></div>
+    <div class="sec-head label" data-reveal><span class="num">(03)</span><span>contact</span><span class="rule"></span><span><span class="dot"></span>open to internships</span></div>
     <h2 class="big" data-reveal><span style="display:block">Way to</span><span class="indent glow"><span class="led">://reach</span></span></h2>
     <ul data-reveal>
       <li><a href="mailto:devanshaggarwal108@gmail.com"><span data-scramble>email</span><span class="label">devanshaggarwal108@gmail.com</span><span class="go">↗</span></a></li>
@@ -577,7 +613,6 @@
 <script>
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = matchMedia('(pointer: fine)').matches;
-  window.pointer = { x: 0, y: 0 };   // -1..1, shared with the 3D object
 
   // index.html?drafts outlines every AI-written draft that still needs rewriting
   if (/[?&]drafts\b/.test(location.search)) document.body.classList.add('show-drafts');
@@ -609,16 +644,6 @@
     });
   })();
 
-  // Local clock in the nav. Change TZ to your own time zone.
-  (function () {
-    const TZ = 'Asia/Kolkata', TZ_LABEL = 'IST';
-    const el = document.getElementById('clock');
-    document.getElementById('tz').textContent = TZ_LABEL;
-    const fmt = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: TZ });
-    const tick = () => { el.textContent = fmt.format(new Date()); };
-    tick(); setInterval(tick, 1000);
-  })();
-
   // Nav: hide while scrolling down, show when scrolling up; highlight the current section
   (function () {
     const nav = document.querySelector('.nav');
@@ -627,10 +652,12 @@
       const y = scrollY;
       nav.classList.toggle('hide', y > last && y > 300);
       last = y;
+      // back on the hero: no section is current
+      if (y < innerHeight * 0.5) links.forEach(a => a.classList.remove('on'));
     }, { passive: true });
     const links = [...document.querySelectorAll('.links a')];
     const io = new IntersectionObserver(entries => entries.forEach(e => {
-      if (!e.isIntersecting) return;
+      if (!e.isIntersecting || scrollY < innerHeight * 0.5) return;
       links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
     }), { rootMargin: '-45% 0px -50% 0px' });
     ['work', 'about', 'contact'].forEach(id => io.observe(document.getElementById(id)));
@@ -700,12 +727,8 @@
     els.forEach(e => io.observe(e));
   })();
 
-  // Pointer position (for the 3D object) + project preview that follows the cursor
+  // Project preview that follows the cursor over the work index
   (function () {
-    addEventListener('pointermove', e => {
-      pointer.x = e.clientX / innerWidth * 2 - 1;
-      pointer.y = e.clientY / innerHeight * 2 - 1;
-    }, { passive: true });
     if (!fine || reduce) return;
     const peek = document.querySelector('.peek'), txt = document.getElementById('peekTxt'), url = document.getElementById('peekUrl');
     const screen = document.getElementById('peekScreen'), img = document.getElementById('peekImg');
@@ -758,125 +781,6 @@
       });
     });
   })();
-</script>
-<script type="importmap">
-  { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
-</script>
-<script type="module">
-  // 3D particle planet with an orbit ring, drawn inside the hero "plate". Colour follows the accent.
-  import * as THREE from 'three';
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const canvas = document.getElementById('orb');
-  const plate = canvas.parentElement;
-  let renderer = null;
-  try { renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true }); }
-  catch (e) { canvas.remove(); }
-
-  if (renderer) {
-    renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(40, 1, 0.1, 100);
-    camera.position.z = 7.4;
-
-    const readColour = () => {
-      const v = getComputedStyle(document.documentElement).getPropertyValue('--rgb').split(',').map(x => parseFloat(x) / 255);
-      return new THREE.Color(v[0] || .66, v[1] || .52, v[2] || 1);
-    };
-    const uniforms = {
-      uTime: { value: 0 }, uColor: { value: readColour() },
-      uPixel: { value: renderer.getPixelRatio() }, uBoost: { value: 1.0 },
-    };
-    const vertexShader = `
-      uniform float uTime; uniform float uPixel; uniform float uBoost;
-      attribute float aSeed; varying float vAlpha;
-      void main() {
-        vec3 p = position;
-        float wave = sin(p.x * 3.0 + uTime * 0.9) * cos(p.y * 3.5 - uTime * 0.7) * sin(p.z * 2.5 + uTime * 0.5);
-        p *= 1.0 + 0.012 * wave;
-        vec4 mv = modelViewMatrix * vec4(p, 1.0);
-        gl_Position = projectionMatrix * mv;
-        float twinkle = 0.6 + 0.4 * sin(uTime * 2.0 + aSeed * 40.0);
-        gl_PointSize = (2.2 + 3.0 * aSeed) * uPixel * (7.0 / -mv.z);
-        vAlpha = uBoost * twinkle * smoothstep(-11.0, -5.0, mv.z) * (0.55 + 0.45 * (wave * 0.5 + 0.5));
-      }`;
-    const fragmentShader = `
-      uniform vec3 uColor; varying float vAlpha;
-      void main() {
-        float d = length(gl_PointCoord - 0.5);
-        float a = smoothstep(0.5, 0.0, d);
-        gl_FragColor = vec4(mix(uColor, vec3(1.0), a * 0.35), a * vAlpha);
-      }`;
-    const material = new THREE.ShaderMaterial({ uniforms, vertexShader, fragmentShader, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending });
-
-    const small = innerWidth < 700;
-    const N = small ? 5000 : 9000;
-    const pos = new Float32Array(N * 3), seed = new Float32Array(N);
-    const golden = Math.PI * (3 - Math.sqrt(5));
-    for (let i = 0; i < N; i++) {
-      const y = 1 - (i / (N - 1)) * 2, r = Math.sqrt(1 - y * y), th = golden * i, R = 1.5;
-      pos.set([Math.cos(th) * r * R, y * R, Math.sin(th) * r * R], i * 3);
-      seed[i] = Math.random();
-    }
-    const sphereGeo = new THREE.BufferGeometry();
-    sphereGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    sphereGeo.setAttribute('aSeed', new THREE.BufferAttribute(seed, 1));
-    const sphere = new THREE.Points(sphereGeo, material);
-
-    const M = small ? 4000 : 8000;
-    const rpos = new Float32Array(M * 3), rseed = new Float32Array(M);
-    for (let i = 0; i < M; i++) {
-      const a = Math.random() * Math.PI * 2, rad = 2.0 + Math.pow(Math.random(), 1.6) * 0.55;
-      rpos.set([Math.cos(a) * rad, (Math.random() - .5) * 0.04, Math.sin(a) * rad], i * 3);
-      rseed[i] = Math.random() * 0.6;
-    }
-    const ringGeo = new THREE.BufferGeometry();
-    ringGeo.setAttribute('position', new THREE.BufferAttribute(rpos, 3));
-    ringGeo.setAttribute('aSeed', new THREE.BufferAttribute(rseed, 1));
-    const ringMat = material.clone();
-    ringMat.uniforms = { ...uniforms, uBoost: { value: 1.5 } };
-    const ring = new THREE.Points(ringGeo, ringMat);
-    ring.rotation.order = 'ZXY';   // spin (Y) happens in the ring's own plane, then tilt
-    ring.rotation.set(0.42, 0, 0.32);
-
-    new MutationObserver(() => { uniforms.uColor.value = readColour(); })
-      .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-
-    const group = new THREE.Group();
-    group.add(sphere, ring);
-    scene.add(group);
-
-    function resize() {
-      const w = plate.clientWidth, h = plate.clientHeight;
-      if (!w || !h) return;
-      renderer.setSize(w, h, false);
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      // keep the ring (radius ~2.55) inside the plate whatever its shape
-      const halfW = camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.aspect;
-      group.scale.setScalar(Math.min(1, halfW * 0.86 / 2.55));
-    }
-    new ResizeObserver(resize).observe(plate);
-    resize();
-
-    const rot = document.getElementById('rot');
-    let rx = 0, ry = 0, visible = true;
-    new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(plate);
-    const clock = new THREE.Clock();
-    function frame() {
-      const t = clock.getElapsedTime();
-      uniforms.uTime.value = t;
-      sphere.rotation.y = t * 0.08;
-      ring.rotation.y = t * 0.05;
-      const p = window.pointer || { x: 0, y: 0 };
-      rx += (p.y * 0.3 - rx) * 0.05;
-      ry += (p.x * 0.5 - ry) * 0.05;
-      group.rotation.set(rx, ry, 0);
-      rot.textContent = ((sphere.rotation.y * 180 / Math.PI) % 360).toFixed(1).padStart(5, '0');
-      renderer.render(scene, camera);
-    }
-    if (reduce) frame();
-    else renderer.setAnimationLoop(() => { if (!document.hidden && visible) frame(); });
-  }
 </script>
 </body>
 </html>
